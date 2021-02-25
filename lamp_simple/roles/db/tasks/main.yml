@@ -1,22 +1,22 @@
 ---
 # This playbook will install mysql and create db user and give permissions.
 
-- name: Install Mysql package
+- name: Install mariadb package
   yum:
     name: "{{ item }}"
-    state: installed
   with_items:
-   - mysql-server
-   - MySQL-python
-   - libselinux-python
-   - libsemanage-python
+   - mariadb-server
+   - python3-PyMySQL
+   - python3-libselinux
+   - python3-libsemanage
+  state: latest
 
 - name: Configure SELinux to start mysql on any port
   seboolean:
     name: mysql_connect_any
     state: true
     persistent: yes
-  when: sestatus.rc != 0
+  when: sestatus.rc !=1 
 
 - name: Create Mysql configuration file
   template:
