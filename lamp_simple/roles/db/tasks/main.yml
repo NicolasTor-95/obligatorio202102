@@ -42,7 +42,7 @@
 
 - name: insert iptables rule
   lineinfile:
-    dest: /etc/sysconfig/iptables
+    dest: /etc/sysconfig/iptables-config
     state: present
     regexp: "{{ mysql_port }}"
     insertafter: "^:OUTPUT "
