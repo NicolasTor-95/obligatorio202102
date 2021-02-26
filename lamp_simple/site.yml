@@ -11,7 +11,11 @@
 
 #- name: configure and deploy the webservers and application code
 #  hosts: webservers
+<<<<<<< HEAD
 #   become: yes
+=======
+#  become: yes
+>>>>>>> 22b457e47b61d3cea620bb52f701d03482bd185a
 #  remote_user: ansible
 
 #  roles:
