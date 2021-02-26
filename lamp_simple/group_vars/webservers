@@ -1,0 +1,10 @@
+#Packages of Webservers 
+
+
+packagesweb:
+- apache2
+- php
+- php-mysql
+- git
+- python3-semanage
+- python3-selinux

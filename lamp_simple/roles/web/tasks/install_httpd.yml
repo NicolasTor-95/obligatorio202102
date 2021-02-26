@@ -38,4 +38,4 @@
     name: httpd_can_network_connect_db
     state: true
     persistent: yes
-  when: sestatus.rc != 0
+  when: ansible_selinux.status != 1
