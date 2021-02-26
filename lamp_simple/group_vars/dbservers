@@ -7,3 +7,9 @@ mysql_port: 3306
 dbuser: foouser
 dbname: foodb
 upassword: abc
+
+packagesdb:
+- mariadb-server
+- python3-PyMySQL
+- python3-libselinux
+- python3-libsemanage

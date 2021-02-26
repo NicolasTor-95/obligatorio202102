@@ -3,6 +3,7 @@
 
 #- name: apply common configuration to all nodes
 #  hosts: all
+#  become: yes
 #  remote_user: ansible
  
 #  roles:
@@ -10,6 +11,7 @@
 
 #- name: configure and deploy the webservers and application code
 #  hosts: webservers
+#   become: yes
 #  remote_user: ansible
 
 #  roles:
@@ -17,7 +19,8 @@
 
 - name: configure and deploy the webservers and application code
   hosts: dbservers
+  become: yes
   remote_user: ansible
-
+  
   roles:
     - db

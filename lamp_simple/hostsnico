@@ -1,0 +1,14 @@
+[Bastion]
+centos1 ansible_host=192.168.88.10
+
+[dbservers]
+centos2 ansible_host=192.168.88.11
+
+[webservers]
+ubuntu1 ansible_host=192.168.88.12
+
+[all]
+centos1
+centos2
+ubuntu1
+

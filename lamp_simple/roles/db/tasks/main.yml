@@ -3,22 +3,24 @@
 
 - name: Install mariadb package
   yum:
-    name: "mariadb-server"
-#    name: "{{ item }}"
+    name: "{{ item }}"
     state: latest
+  loop: "{{ packagesdb }}"
+
+#  Obsoleto
 #  with_items:
 #    - mariadb-server
-#   - python3-PyMySQL
-#   - python3-libselinux
-#    - libsemanage-python
-#   state: latest
+#    - python3-PyMySQL
+#    - python3-libselinux
+#    - python3-libsemanage
+
 
 - name: Configure SELinux to start mysql on any port
   seboolean:
     name: mysql_connect_any
     state: true
     persistent: yes
-  when: ansible_selinux.status != 0
+# when: ansible_selinux.status != 1
 
 - name: Create Mysql configuration file
   template:
