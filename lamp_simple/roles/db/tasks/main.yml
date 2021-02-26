@@ -3,7 +3,6 @@
 
 - name: Install mariadb package
   yum:
-<<<<<<< HEAD
     name: "{{ item }}"
     state: latest
   loop: "{{ packagesdb }}"
@@ -14,18 +13,6 @@
 #    - python3-PyMySQL
 #    - python3-libselinux
 #    - python3-libsemanage
-
-=======
-    #name: httpd
-    name: "{{ item }}"
-    state: latest
-  with_items:
-    - mariadb-server
-    - python3-PyMySQL
-    - python3-libselinux
-    - python3-libsemanage
-    #state: latest
->>>>>>> 22b457e47b61d3cea620bb52f701d03482bd185a
 
 - name: Configure SELinux to start mysql on any port
   seboolean:
