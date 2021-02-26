@@ -2,16 +2,20 @@
 # These tasks install http and the php modules.
 
 - name: Install http and php etc
-  yum:
-    name: "{{ item }}"
-    state: present
-  with_items:
-   - httpd
-   - php
-   - php-mysql
-   - git
-   - libsemanage-python
-   - libselinux-python
+  apt:
+    name: "{{ item }}" 
+    state: latest
+  loop: "{{ packagesweb }}"
+
+ 
+
+#  with_items:
+#   - httpd
+#   - php
+#   - php-mysql
+#   - git
+#   - libsemanage-python
+#   - libselinux-python
 
 - name: insert iptables rule for httpd
   lineinfile:
