@@ -29,13 +29,13 @@
 
 - name: http service state
   service:
-    name: httpd
+    name: apache2
     state: started
     enabled: yes
 
-- name: Configure SELinux to allow httpd to connect to remote database
-  seboolean:
-    name: httpd_can_network_connect_db
-    state: true
-    persistent: yes
-  when: ansible_selinux.status != 1
+#- name: Configure SELinux to allow httpd to connect to remote database
+#  seboolean:
+#    name: httpd_can_network_connect_db
+#    state: true
+#    persistent: yes
+#  when: ansible_selinux.status != 1

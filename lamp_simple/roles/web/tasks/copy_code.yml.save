@@ -7,6 +7,8 @@
 #    state: absent
 #    path: /var/www/html/index.html
 
+- debug:
+   var: ipv4 
 
 - name: Copy the code from repository
   git:
@@ -23,8 +25,8 @@
 #    owner: apache
 #    group: apache      
 
-#- name: Creates the index.php file
-#  template:
-#    src: index.php.j2
-#    dest: /var/www/html/index.php
+- name: Creates the index.php file
+  template:
+    src: index.php.j2
+    dest: /var/www/html/index.php
     
