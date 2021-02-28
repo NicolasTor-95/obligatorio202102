@@ -9,6 +9,9 @@ packageswebd:
 - git
 - python3-semanage
 - python3-selinux
+- selinux-basics
+- selinux-utils
+- policycoreutils
 
 packageswebr:
 - iptables-services

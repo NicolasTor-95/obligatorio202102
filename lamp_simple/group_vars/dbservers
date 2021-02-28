@@ -21,3 +21,6 @@ packagesdbd:
 - python3-selinux
 - python3-semanage
 - iptables
+- selinux-utils
+- selinux-basics
+- policycoreutils
