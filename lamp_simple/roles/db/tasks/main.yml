@@ -5,7 +5,15 @@
   yum:
     name: "{{ item }}"
     state: latest
-  loop: "{{ packagesdb }}"
+  loop: "{{ packagesdbr }}"
+  when: ansible_os_family == "RedHat"
+
+- name: Install mariadb packages
+  apt:
+    name: "{{ item }}"
+    state: latest
+  loop: "{{ packagesdbd }}"
+  when: ansible_os_family == "Debian"
 
 #  Obsoleto
 #  with_items:
@@ -14,12 +22,12 @@
 #    - python3-libselinux
 #    - python3-libsemanage
 
-- name: Configure SELinux to start mysql on any port
+- name: Configure SELinux to start mysql on any port RedHat
   seboolean:
     name: mysql_connect_any
     state: yes
     persistent: yes
-  when: ansible_selinux.status != 1
+  when: ansible_selinux.status != 1 and ansible_os_family == "RedHat"
 
 - name: Start MariaDB Service
   service:
@@ -34,6 +42,7 @@
   notify:
   - restart mariadb
 
+# Cambiamos por MariaDB por eso esta comentado
 #- name: Start Mysql Service
 #  service:
 #    name: mysqld
@@ -47,7 +56,7 @@
     regexp: "{{ mysql_port }}"
     insertafter: "^:OUTPUT "
     line: "-A INPUT -p tcp  --dport {{ mysql_port }} -j  ACCEPT"
-#  notify: restart iptables
+  notify: restart iptables
 
 - name: Create Application Database
   mysql_db:

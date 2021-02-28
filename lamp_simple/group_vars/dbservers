@@ -8,8 +8,16 @@ dbuser: foouser
 dbname: foodb
 upassword: abc
 
-packagesdb:
+packagesdbr:
 - mariadb-server
 - python3-PyMySQL
 - python3-libselinux
 - python3-libsemanage
+- iptables-services
+
+packagesdbd:
+- mariadb-server
+- python3-PyMySQL
+- python3-selinux
+- python3-semanage
+- iptables

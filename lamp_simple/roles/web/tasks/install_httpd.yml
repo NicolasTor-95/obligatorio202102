@@ -1,13 +1,19 @@
 ---
 # These tasks install http and the php modules.
 
-- name: Install http and php etc
+- name: Install http and php Debian
   apt:
     name: "{{ item }}" 
     state: latest
-  loop: "{{ packagesweb }}"
+  loop: "{{ packageswebd }}"
+  when: ansible_os_family == "Debian"
 
- 
+- name: Install http and php RedHat 
+  yum:
+    name: "{{ item }}"
+    state: latest
+  loop: "{{ packageswebr }}"
+  when: ansible_os_family == "RedHat"
 
 #  with_items:
 #   - httpd
@@ -25,13 +31,21 @@
     regexp: "{{ httpd_port }}"
     insertafter: "^:OUTPUT "
     line: "-A INPUT -p tcp  --dport {{ httpd_port }} -j  ACCEPT"
-#  notify: restart iptables
+  notify: restart iptables
 
-- name: http service state
+- name: http service state Debian
   service:
     name: apache2
     state: started
     enabled: yes
+  when: ansible_os_family == "Debian"
+
+- name: http service state RedHat
+  service:
+    name: httpd
+    state: started
+    enabled: yes
+  when: ansible_os_family == "RedHat"
 
 #- name: Configure SELinux to allow httpd to connect to remote database
 #  seboolean:
