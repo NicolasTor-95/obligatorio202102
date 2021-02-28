@@ -6,7 +6,8 @@
  </br>
   <a href=http://{{ ansible_default_ipv4.address }}/index.html>Homepage</a>
  </br>
-<?php 
+<?php
+ 
  Print "Hello, World! I am a web server configured using Ansible and I am : ";
  echo exec('hostname');
  Print  "</BR>";
@@ -18,6 +19,7 @@ echo  "List of Databases: </BR>";
         while ($row = mysqli_fetch_assoc($res)) {
                 echo $row['Database'] . "\n";
         }
+
 ?>
 </body>
 </html>

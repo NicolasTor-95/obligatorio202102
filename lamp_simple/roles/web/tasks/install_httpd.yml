@@ -25,7 +25,7 @@
     regexp: "{{ httpd_port }}"
     insertafter: "^:OUTPUT "
     line: "-A INPUT -p tcp  --dport {{ httpd_port }} -j  ACCEPT"
-  notify: restart iptables
+#  notify: restart iptables
 
 - name: http service state
   service:
