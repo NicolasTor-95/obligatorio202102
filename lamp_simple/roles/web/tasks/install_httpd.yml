@@ -47,6 +47,24 @@
     enabled: yes
   when: ansible_os_family == "RedHat"
 
+- name: Apagar AppArmor
+  service:
+    name: apparmor
+    state: stopped
+  when: ansible_os_family == "Debian"  
+  notify: restart SELINUX
+
+- name: Iniciar SELinux Ubuntu
+  command: selinux-activate
+  when: ansible_os_family == "Debian"
+  notify: restart SELINUX  
+
+
+#- name: Enforce SELINUX
+#  command: selinux-config-enforcing 
+#  when: ansible_os_family == "Debian"
+#  notify: restart SELINUX  
+
 #- name: Configure SELinux to allow httpd to connect to remote database
 #  seboolean:
 #    name: httpd_can_network_connect_db
