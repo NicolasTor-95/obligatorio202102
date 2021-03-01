@@ -52,4 +52,5 @@
 - name: test to see if selinux is running
   command: getenforce
   register: sestatus
-  changed_when: false and ansible_family_os == "RedHat"
+  changed_when: false
+  when: ansible_os_family == "RedHat"

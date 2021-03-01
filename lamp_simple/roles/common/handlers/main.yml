@@ -10,5 +10,5 @@
 
 - name: restart chronyd
   service:
-    name: chonyd
+    name: chronyd
     state: restarted
