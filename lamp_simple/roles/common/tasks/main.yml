@@ -21,16 +21,35 @@
     src: ntp.conf.j2
     dest: /etc/ntp.conf
 #    tags: ntp
+  when: ansible_os_family == "Debian"
   notify: restart ntp
 
-#- name: Start the ntp service
-#  service:
-#    name: ntpd
-#    state: started
-#    enabled: yes
+
+- name: Cofigure chronyd file
+  template:
+    src: ntp.conf.j2
+    dest: /etc/ntp.conf
+  when: ansible_os_family == "RedHat"
+  notify: restart chronyd
+
+
+- name: Start the ntp service
+  service:
+    name: ntp
+    state: started
+    enabled: yes
+  when: ansible_os_family == "Debian"
 #  tags: ntp
 
-#- name: test to see if selinux is running
-#  command: getenforce
-#  register: sestatus
-#  changed_when: false
+- name: Start the chrony services
+  service:
+    name: chronyd
+    state: started
+    enabled: yes
+  when: ansible_os_family == "RedHat"
+
+
+- name: test to see if selinux is running
+  command: getenforce
+  register: sestatus
+  changed_when: false and ansible_family_os == "RedHat"

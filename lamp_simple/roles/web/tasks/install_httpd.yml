@@ -47,17 +47,20 @@
     enabled: yes
   when: ansible_os_family == "RedHat"
 
-- name: Apagar AppArmor
-  service:
-    name: apparmor
-    state: stopped
-  when: ansible_os_family == "Debian"  
-  notify: restart SELINUX
 
-- name: Iniciar SELinux Ubuntu
-  command: selinux-activate
-  when: ansible_os_family == "Debian"
-  notify: restart SELINUX  
+#TRABAJAMOS MUCHO EN TRATAR DE QUE UBUNTU LEVANTE SELINUX Y ENCONTRAMOS QUE NO ESTA APTO AUN PARA ESTE SISTEMA OPERATIVO
+#DEBERIAMOS CONFIGURAR APPARMOR PERO COMO NO LO VIMOS EN EL CURSO PREFERIMOS AVANZAR CON OTROS TEMAS PENDIENTES
+#- name: Apagar AppArmor
+#  service:
+#    name: apparmor
+#    state: stopped
+#  when: ansible_os_family == "Debian"  
+#  notify: restart SELINUX
+
+#- name: Iniciar SELinux Ubuntu
+#  command: selinux-activate
+#  when: ansible_os_family == "Debian"
+#  notify: restart SELINUX  
 
 
 #- name: Enforce SELINUX
@@ -65,9 +68,12 @@
 #  when: ansible_os_family == "Debian"
 #  notify: restart SELINUX  
 
-#- name: Configure SELinux to allow httpd to connect to remote database
-#  seboolean:
-#    name: httpd_can_network_connect_db
-#    state: true
-#    persistent: yes
-#  when: ansible_selinux.status != 1
+
+
+- name: Configure SELinux to allow httpd to connect to remote database
+  seboolean:
+    name: httpd_can_network_connect_db
+    state: true
+    persistent: yes
+  when: ansible_selinux.status != 1 and ansible_os_family == "RedHat" 
+  

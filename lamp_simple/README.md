@@ -3,6 +3,11 @@
 En este documento se explicara como utilizar / modificar los Script de despliegue de aplicaciones para servidores
 de familia RedHad o Debian .
 
+###################### ACLARACION SOBRE SELINUX ##################################################
+
+Tener en cuenta que en ditribuciones Debian SELinux esta en fase experimental por lo que su implementacion
+no esta recomendada. En los roles de WEB aclaramos bien este punto y mostramos como se dederia
+configurar aunque en su ejecucion Debian al reiniciar da un error y no levanta el sistema completamente
 
 ################ Requisitos de despliegue ################
 

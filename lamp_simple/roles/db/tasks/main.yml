@@ -22,12 +22,17 @@
 #    - python3-libselinux
 #    - python3-libsemanage
 
+
+#VER COMENTARIOS EN LAS TAREAS DEL ROL WEB PARA ENTENDER PORQUE NO USAMOS SELINUX EN DISTRIBUCIONES UBUNTU
+
+
 - name: Configure SELinux to start mysql on any port RedHat
   seboolean:
     name: mysql_connect_any
     state: yes
     persistent: yes
   when: ansible_selinux.status != 1 and ansible_os_family == "RedHat"
+
 
 - name: Start MariaDB Service
   service:
