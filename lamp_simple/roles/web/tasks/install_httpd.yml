@@ -76,4 +76,20 @@
     state: true
     persistent: yes
   when: ansible_selinux.status != 1 and ansible_os_family == "RedHat" 
-  
+
+
+#- name: Allow access to port 80
+#  ufw:
+#   rule: allow
+#    port: '80' 
+
+
+- name: Allow access to port 
+  ufw:
+    rule: allow
+    port: '22'
+
+- name: Allow access to port
+  ufw:
+    rule: allow
+    port: '443'
