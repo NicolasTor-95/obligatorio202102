@@ -4,7 +4,7 @@
 
 - name: restart iptables
   service:
-    name: iptables
+    name: real_iptables
     state: restarted
   when: ansible_os_family == "Debian"
 
