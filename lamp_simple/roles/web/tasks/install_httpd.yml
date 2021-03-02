@@ -77,11 +77,11 @@
 
 # DEBIAN FIREWALL
 - name: Comando para negar entradas
-  command: sudo ufw default deny incoming
+  command: ufw default deny incoming
   when: ansible_os_family == "Debian"
 
 - name: Comando para aceptar entradas
-  command: sudo ufw default allow outgoing
+  command: ufw default allow outgoing
   when: ansible_os_family == "Debian"
 
 
