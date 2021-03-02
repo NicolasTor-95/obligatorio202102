@@ -54,14 +54,43 @@
 #    state: started
 #    enabled: yes
 
-- name: insert iptables rule
-  lineinfile:
-    dest: /etc/sysconfig/iptables-config
-    state: present
-    regexp: "{{ mysql_port }}"
-    insertafter: "^:OUTPUT "
-    line: "-A INPUT -p tcp  --dport {{ mysql_port }} -j  ACCEPT"
-  notify: restart iptables
+#ESTO NO VA
+#- name: insert iptables rule
+#  lineinfile:
+#    dest: /etc/sysconfig/iptables-config
+#    state: present
+#    regexp: "{{ mysql_port }}"
+#    insertafter: "^:OUTPUT "
+#    line: "-A INPUT -p tcp  --dport {{ mysql_port }} -j  ACCEPT"
+#  notify: restart iptables
+
+# CENTOS FIREWALL
+- name: Allow access to port
+  firewalld:    
+    port: 3306/tcp
+    permanent: true
+    state: enabled
+    immediate: yes
+  when: ansible_os_family == "RedHat"
+
+# DEBIAN FIREWALL
+
+- name: Comando para negar entradas
+  command: ufw default deny incoming
+  when: ansible_os_family == "Debian"
+
+- name: Comando para aceptar salidas
+  command: ufw default allow outgoing
+  when: ansible_os_family == "Debian"
+
+- name: Allow access to port
+  ufw:
+    rule: allow
+    port: '3306'
+  when: ansible_os_family == "Debian"
+
+
+
 
 - name: Create Application Database
   mysql_db:

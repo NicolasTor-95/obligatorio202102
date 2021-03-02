@@ -15,6 +15,8 @@
   loop: "{{ packageswebr }}"
   when: ansible_os_family == "RedHat"
 
+
+#ESTO ESTA MAL, POR ESO LO COMENTAMOS
 #  with_items:
 #   - httpd
 #   - php
@@ -23,15 +25,19 @@
 #   - libsemanage-python
 #   - libselinux-python
 
-- name: insert iptables rule for httpd
-  lineinfile:
-    dest: /etc/sysconfig/iptables
-    create: yes
-    state: present
-    regexp: "{{ httpd_port }}"
-    insertafter: "^:OUTPUT "
-    line: "-A INPUT -p tcp  --dport {{ httpd_port }} -j  ACCEPT"
-  notify: restart iptables
+#- name: insert iptables rule for httpd
+#  lineinfile:
+#    dest: /etc/sysconfig/iptables
+#    create: yes
+#    state: present
+#    regexp: "{{ httpd_port }}"
+#    insertafter: "^:OUTPUT "
+#    line: "-A INPUT -p tcp  --dport {{ httpd_port }} -j  ACCEPT"
+#  notify: restart iptables
+
+
+
+
 
 - name: http service state Debian
   service:
@@ -69,6 +75,48 @@
 #  notify: restart SELINUX  
 
 
+# DEBIAN FIREWALL
+- name: Comando para negar entradas
+  command: sudo ufw default deny incoming
+  when: ansible_os_family == "Debian"
+
+- name: Comando para aceptar entradas
+  command: sudo ufw default allow outgoing
+  when: ansible_os_family == "Debian"
+
+
+- name: Allow access to port
+  ufw:
+    rule: allow
+    port: '80'
+  when: ansible_os_family == "Debian"
+
+- name: Allow access to port
+  ufw: 
+    rule: allow
+    port: '22'
+  when: ansible_os_family == "Debian"
+
+- name: Allow access to port
+  ufw:
+    rule: allow
+    port: '443'
+  when: ansible_os_family == "Debian"
+ 
+
+# CENTOS FIREWALL
+
+- name: Allow access to port
+  firewalld:
+    service: http
+    permanent: true
+    state: enabled
+    immediate: yes 
+  when: ansible_os_family == "RedHat"
+
+
+
+
 
 - name: Configure SELinux to allow httpd to connect to remote database
   seboolean:
@@ -77,19 +125,3 @@
     persistent: yes
   when: ansible_selinux.status != 1 and ansible_os_family == "RedHat" 
 
-
-#- name: Allow access to port 80
-#  ufw:
-#   rule: allow
-#    port: '80' 
-
-
-- name: Allow access to port 
-  ufw:
-    rule: allow
-    port: '22'
-
-- name: Allow access to port
-  ufw:
-    rule: allow
-    port: '443'

@@ -2,19 +2,19 @@
 
 
 packageswebd:
-- iptables
+#- iptables
 - apache2
 - php
 - php-mysql
 - git
 - python3-semanage
 - python3-selinux
-- selinux-basics
-- selinux-utils
-- policycoreutils
+#- selinux-basics
+#- selinux-utils
+#- policycoreutils
 
 packageswebr:
-- iptables-services
+#- iptables-services
 - httpd
 - php
 - php-mysql

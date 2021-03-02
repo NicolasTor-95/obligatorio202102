@@ -13,14 +13,14 @@ packagesdbr:
 - python3-PyMySQL
 - python3-libselinux
 - python3-libsemanage
-- iptables-services
+#- iptables-services
 
 packagesdbd:
 - mariadb-server
 - python3-PyMySQL
 - python3-selinux
 - python3-semanage
-- iptables
-- selinux-utils
-- selinux-basics
-- policycoreutils
+#- iptables
+#- selinux-utils
+#- selinux-basics
+#- policycoreutils
